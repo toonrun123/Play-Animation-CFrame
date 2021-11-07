@@ -15,26 +15,27 @@ function a:Play(Model:Model,lm)
 	self.NormalCFrame = {}
 	self.CFrameNext = {}
 	self.x = {}
-	
+
 	for i,v in next,Model:GetDescendants() do
 		if v:IsA("Motor6D") then
 			rawset(self.NormalCFrame,v.Name,v.C1)
 		end
 	end
 	local r = {}
-	if rawequal(type(lm),"Instance") then
-		local r = require(lm)
+	if rawequal(type(lm),"userdata") then
+		r = require(lm)
 	elseif rawequal(type(lm),"table") then
-		local r = lm
+		r = lm
 	end
-	local fps = r.Properties.FramePerSeconds or 120
+	
+	print(r.Properties)
 	local il = r.Properties.Looping
 	local ahn = r.Properties.AllowHandleName
 	local Keyframes = r.Keyframes
 	local t = {}
 	local sp = 0
-	
-	
+
+
 	local function forloop(v,name)
 		for n,b in next,v do
 			if rawequal(type(b),"table") then
@@ -46,17 +47,18 @@ function a:Play(Model:Model,lm)
 			end
 		end
 	end
-	
+
 	for i,v in next,Keyframes do
 		table.insert(t,i)
 	end
-	
+
 	table.sort(t,function(x,y)
 		return x < y
 	end)
-	
+
 	local function make()
 		for iasd,v in ipairs(t) do
+			local num = v
 			v = Keyframes[v]
 			forloop(v,iasd)
 			local Complete = 0
@@ -76,20 +78,19 @@ function a:Play(Model:Model,lm)
 							end
 						end
 						if mo and qe then
-							local Tnew = TweenInfo.new(1/fps,Tinfo.EasingStyle,Tinfo.EasingDirection,0,false,0)
-							local ts:TweenBase =  TweenService:Create(mo,Tnew,{C1 = self.NormalCFrame[mo.Name] * qe:Inverse()})
+							Complete += 1
+							local Tnew = TweenInfo.new(math.abs(num-sp+0.1),Tinfo.EasingStyle,Tinfo.EasingDirection,0,false,0)
+							local ts:TweenBase = TweenService:Create(mo,Tnew,{C1 = self.NormalCFrame[mo.Name] * qe:Inverse()})
 							ts:Play()
-							ts.Completed:Wait()
 						end
 					end
-					Complete += 1
 				end)
 			end
 			repeat
 				wait()
 			until Complete >= C
 			Complete = 0
-			sp = iasd
+			sp = num
 		end
 	end
 	if il then
