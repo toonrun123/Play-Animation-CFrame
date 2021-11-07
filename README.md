@@ -1,7 +1,13 @@
 # Play-Animation-CFrame
-## Requirement:
+## Requirements:
 - [Animation Convertor](https://www.roblox.com/library/442028078/Animation-Converter) || This Plugin For Convert Animation To CFrame.
 - #### Lua Beginner Skill (require, modulescript, etc.)
+
+## Pros:
+- #### Can Run all animations.
+
+## Cons:
+- #### Running on 30 fps.
 
 ## Tutorial:
 #### 1.Use Animation Convertor And Import Animation.
