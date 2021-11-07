@@ -12,13 +12,13 @@
 #### 4.Now Import AnimationCFramePlayerModule.lua
 ```lua
 local Player = require(PATH_TO_AnimationCFramePlayerModule)
-local AnimationModulePath = require(PATH_TO_MODULE_ANIMATION)
+local AnimationModulePath = PATH_TO_MODULE_ANIMATION
 game.Players.PlayerAdded:Connect(function(plr)
 	plr.CharacterAdded:Connect(function(char)
 		wait(3)
 		print("play!")
 		task.synchronize()
-		Player:Play(char,script:WaitForChild("s"))
+		Player:Play(char,AnimationModulePath)
 	end)
 end)
 ```
