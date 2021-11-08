@@ -28,7 +28,6 @@ function a:Play(Model:Model,lm)
 		r = lm
 	end
 	
-	print(r.Properties)
 	local il = r.Properties.Looping
 	local ahn = r.Properties.AllowHandleName
 	local Keyframes = r.Keyframes
